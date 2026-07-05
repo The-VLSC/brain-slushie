@@ -1,0 +1,75 @@
+{
+  "$schema": "https://thevlsc.com/schemas/document-ocr-pipeline.config.schema.json",
+  "name": "ChatVLSC Document OCR Pipeline",
+  "status": "database_started",
+  "repository": {
+    "provider": "github",
+    "repository_full_name": "support-thevlsc/brain-slushie",
+    "repository_url": "https://github.com/support-thevlsc/brain-slushie",
+    "default_branch": "main",
+    "visibility": "public",
+    "publish_policy": "sanitized_config_only",
+    "legacy_repository_policy": "Do not include or reintroduce legacy repository references."
+  },
+  "stageOne": {
+    "description": "Initial OCR intake from already-scanned PDF files using scanner-native OCR text and connector extraction where available.",
+    "sourceTypes": [
+      "local_pdf_manifest",
+      "onedrive_pdf_manifest",
+      "sharepoint_pdf_manifest",
+      "uploaded_pdf_manifest"
+    ],
+    "outputs": [
+      "D1 table ocr_documents",
+      "D1 table ocr_pages",
+      "D1 table ocr_fields",
+      "Notion review/database export when connector execution is approved"
+    ],
+    "reviewFlags": [
+      "needs_manual_review",
+      "needs_adobe_ocr",
+      "needs_rescan",
+      "low_confidence_fields"
+    ]
+  },
+  "stageTwo": {
+    "description": "Adobe Acrobat OCR only for documents flagged by Stage One.",
+    "status": "review_required_before_execution"
+  },
+  "stageThree": {
+    "description": "ChatGPT/OpenAI review for limited matching line items after Stage One and Stage Two outputs exist.",
+    "status": "blocked_until_openai_api_key_available",
+    "batchLimit": 10,
+    "openaiApiKey": {
+      "required": true,
+      "status": "not_configured_in_this_workspace",
+      "safeSetup": "Use the OpenAI Developers secure key-creation flow when exposed. Do not store plaintext keys in source, Notion, or chat."
+    }
+  },
+  "cloudflare": {
+    "worker": "vlsc-user-role-mcp",
+    "d1": {
+      "binding": "OCR_DB",
+      "database_name": "chatvlsc-ocr-stage-one",
+      "database_id": "06ce7692-f710-46a2-9a5f-d5428f941e5c",
+      "migrations_dir": "migrations",
+      "migration": "migrations/0001_chatvlsc_ocr_stage_one.sql"
+    },
+    "publicEndpoints": {
+      "status": "GET /ocr/status",
+      "schema": "GET /ocr/schema"
+    }
+  },
+  "notion": {
+    "controlSurface": "ChatVLSC App Setup Progress Log",
+    "stageOneDatabaseName": "Stage One",
+    "policy": "Use Notion for review status and handoff notes. Do not store API keys, refresh tokens, passwords, client secrets, or recovery codes."
+  },
+  "guards": {
+    "noDelete": true,
+    "noMove": true,
+    "noPublicSensitiveConfig": true,
+    "requiresOwnerApprovalBeforeConnectorWrites": true,
+    "requiresOpenAiKeyBeforeStageThree": true
+  }
+}
