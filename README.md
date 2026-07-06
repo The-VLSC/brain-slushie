@@ -16,3 +16,5 @@ Sanitized ChatVLSC route and MCP configuration lives under `config/chatvlsc/`.
 Do not commit Cloudflare, OpenAI, tunnel, Zapier, Notion, or Entra secrets. Public files may include endpoint names, route classes, and policy intent only.
 
 Response-header policy is published as sanitized metadata only and is exposed by the Worker at `GET /security/headers`.
+
+Public homepage routing is published as sanitized DNS metadata: `www.thevlsc.com` is a proxied CNAME to `thevlsc.com`, with `www.thevlsc.com/*` served by the dedicated homepage Worker.
