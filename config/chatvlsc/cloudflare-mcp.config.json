@@ -38,6 +38,7 @@
   },
   "security": {
     "route_map": "config/chatvlsc/secure-api-route-map.json",
+    "response_security_policy": "config/chatvlsc/response-security-policy.json",
     "custom_hostname_access": "not_configured",
     "tunnel_policy": "Use Cloudflare Tunnel only for private origins or Workers VPC-style access. Public Worker routes remain on Workers.",
     "pending_access_applications": [

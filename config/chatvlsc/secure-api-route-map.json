@@ -184,6 +184,15 @@
     },
     "rotation": "Rotate any Cloudflare, OpenAI, tunnel, or service token that appears in chat, Notion, GitHub, logs, or browser-delivered output."
   },
+  "response_security_policy": {
+    "status": "active",
+    "risk_level": 2,
+    "applied_to": [
+      "json_api_responses",
+      "browser_html_responses"
+    ],
+    "config": "config/chatvlsc/response-security-policy.json"
+  },
   "optimization_decisions": [
     "Keep public UI/auth display routes on Workers, not Tunnel.",
     "Use Tunnel only for private origins or Workers VPC-style access to private services.",

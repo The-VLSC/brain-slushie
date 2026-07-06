@@ -1,0 +1,40 @@
+{
+  "$schema": "https://thevlsc.com/schemas/response-security-policy.schema.json",
+  "name": "ChatVLSC Worker Response Security Policy",
+  "status": "active",
+  "risk_level": 2,
+  "updated_at": "2026-07-05T21:08:00-05:00",
+  "scope": {
+    "worker": "vlsc-user-role-mcp",
+    "routes": [
+      "api.thevlsc.com/user_role/v1*",
+      "api.thevlsc.com/admin/v1*",
+      "mcp.thevlsc.com/v1*",
+      "mcp.thevlsc.com/user_role/auth*",
+      "chatvlsc.thevlsc.com/auth/v1*"
+    ]
+  },
+  "headers": {
+    "shared": {
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "no-referrer",
+      "X-Frame-Options": "DENY",
+      "X-Robots-Tag": "noindex, nofollow",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+    },
+    "json": {
+      "Cache-Control": "no-store",
+      "Cross-Origin-Resource-Policy": "same-origin"
+    },
+    "html": {
+      "Cache-Control": "public, max-age=300",
+      "Content-Security-Policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.thevlsc.com https://mcp.thevlsc.com https://chatvlsc.thevlsc.com"
+    }
+  },
+  "notes": [
+    "This policy does not enforce authentication or replace Cloudflare Access.",
+    "Inline script/style are currently allowed because the Worker UI is a single-file page.",
+    "No API keys, service tokens, or verification TXT values are stored in this file."
+  ]
+}
