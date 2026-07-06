@@ -8,6 +8,7 @@
     "account_id": "3213c2f6b79055d92921a6b81d1bedeb",
     "routes": [
       "https://api.thevlsc.com/user_role/v1",
+      "https://mcp.thevlsc.com/v1/",
       "https://mcp.thevlsc.com/user_role/auth",
       "https://chatvlsc.thevlsc.com/auth/v1"
     ]
@@ -15,10 +16,13 @@
   "mcp": {
     "transport": "https",
     "api_uri": "https://api.thevlsc.com/user_role/v1",
+    "development_mcp_url": "https://mcp.thevlsc.com/v1/",
     "display_url": "https://mcp.thevlsc.com/user_role/auth",
     "chatvlsc_auth_url": "https://chatvlsc.thevlsc.com/auth/v1",
     "plannedEndpoints": {
       "configuration": "GET /mcp/config",
+      "developmentConfiguration": "GET /v1/mcp/config",
+      "securityRouteMap": "GET /security/route-map",
       "health": "GET /health",
       "ocrStatus": "GET /ocr/status",
       "ocrSchema": "GET /ocr/schema",
@@ -31,6 +35,15 @@
     "default_branch": "main",
     "visibility": "public",
     "publish_policy": "sanitized_config_only"
+  },
+  "security": {
+    "route_map": "config/chatvlsc/secure-api-route-map.json",
+    "custom_hostname_access": "not_configured",
+    "tunnel_policy": "Use Cloudflare Tunnel only for private origins or Workers VPC-style access. Public Worker routes remain on Workers.",
+    "pending_access_applications": [
+      "api.thevlsc.com/admin/v1*",
+      "mcp.thevlsc.com/v1*"
+    ]
   },
   "legacyRepositoryPolicy": "Do not include or reintroduce legacy repository references.",
   "secretsPolicy": {
