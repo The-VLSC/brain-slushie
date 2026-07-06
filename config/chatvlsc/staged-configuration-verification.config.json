@@ -1,0 +1,85 @@
+{
+  "$schema": "https://thevlsc.com/schemas/staged-configuration-verification.schema.json",
+  "name": "ChatVLSC Staged Configuration Verification",
+  "status": "pass_five_ready",
+  "generated_at": "2026-07-06T00:00:00-05:00",
+  "risk_policy": "Proceed with changes below risk level 9 when they do not expose credentials, secrets, passwords, tokens, refresh tokens, client secrets, certificates, or recovery codes.",
+  "service": {
+    "name": "VLSC User Role MCP",
+    "api_uri": "https://api.thevlsc.com/user_role/v1",
+    "mcp_dev_url": "https://mcp.thevlsc.com/v1/",
+    "display_url": "https://mcp.thevlsc.com/user_role/auth",
+    "chatvlsc_auth_url": "https://chatvlsc.thevlsc.com/auth/v1",
+    "ai_agent_username": "chatvlsc@thevlsc.com"
+  },
+  "five_passes": [
+    {
+      "id": 1,
+      "name": "Inventory",
+      "status": "complete",
+      "checks": [
+        "Nested brain-slushie checkout is synced with origin/main.",
+        "GitHub connector has admin, push, pull, maintain, and triage permissions.",
+        "Wrangler dry-run passes.",
+        "Wrangler local shell is not authenticated.",
+        "No Cloudflare, Graph, OpenAI, or GitHub token is present in local environment variables or .dev.vars.",
+        "OpenAI Platform API-key target discovery is exposed but rejected by the connected account.",
+        "Notion progress log is reachable."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Safe-change selection",
+      "status": "complete",
+      "checks": [
+        "Only read-only and documentation-facing Worker metadata was selected for implementation.",
+        "No credentials, tokens, private keys, refresh tokens, client secrets, or recovery codes are added to source.",
+        "No DNS, Access, Entra, OpenAI, or Zapier permission mutation is attempted without an available authorized API path."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Implementation",
+      "status": "ready",
+      "checks": [
+        "Expose GET /configuration/staged.",
+        "Expose GET /chatgpt/app/readiness.",
+        "Mirror sanitized config to support-thevlsc/brain-slushie."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Verification",
+      "status": "ready",
+      "checks": [
+        "Run pnpm run check.",
+        "Parse every config JSON file.",
+        "Probe live security, identity, staged, and ChatGPT readiness endpoints after deployment."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Documentation",
+      "status": "ready",
+      "checks": [
+        "Update Notion progress log with applied changes and gates.",
+        "Keep Entra app-registration write status current.",
+        "Keep Cloudflare and OpenAI status explicit rather than inferred."
+      ]
+    }
+  ],
+  "current_gates": {
+    "cloudflare_deploy": "Wrangler is not authenticated in the local shell and no local Cloudflare token is present.",
+    "cloudflare_account_wide_changes": "Cloudflare plugin namespace is not exposed in this session; use local Wrangler/API credentials when available.",
+    "entra_app_registration_write": "Microsoft Graph write requires Application.ReadWrite.All or Application Administrator / Cloud Application Administrator rights.",
+    "openai_chatgpt_app_creation": "OpenAI Platform connector target discovery was rejected by the connected account.",
+    "zapier_entra_execution": "Zapier/Entra tools are not exposed in this session."
+  },
+  "safe_public_endpoints": {
+    "staged_configuration": "https://mcp.thevlsc.com/v1/configuration/staged",
+    "chatgpt_app_readiness": "https://mcp.thevlsc.com/v1/chatgpt/app/readiness",
+    "identity_providers": "https://mcp.thevlsc.com/v1/identity/providers",
+    "security_headers": "https://mcp.thevlsc.com/v1/security/headers",
+    "security_route_map": "https://mcp.thevlsc.com/v1/security/route-map"
+  }
+}

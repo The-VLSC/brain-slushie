@@ -23,6 +23,17 @@
     "development_response_headers": "https://mcp.thevlsc.com/v1/security/headers",
     "local_config": "config/chatvlsc/secure-api-route-map.json"
   },
+  "staged_configuration": {
+    "status": "https://api.thevlsc.com/user_role/v1/configuration/staged",
+    "development_status": "https://mcp.thevlsc.com/v1/configuration/staged",
+    "local_config": "config/chatvlsc/staged-configuration-verification.config.json"
+  },
+  "chatgpt_app": {
+    "readiness": "https://api.thevlsc.com/user_role/v1/chatgpt/app/readiness",
+    "development_readiness": "https://mcp.thevlsc.com/v1/chatgpt/app/readiness",
+    "mcp_server_url": "https://mcp.thevlsc.com/v1/",
+    "local_config": "config/chatvlsc/chatgpt-app-readiness.config.json"
+  },
   "ocr": {
     "status": "https://api.thevlsc.com/user_role/v1/ocr/status",
     "schema": "https://api.thevlsc.com/user_role/v1/ocr/schema",

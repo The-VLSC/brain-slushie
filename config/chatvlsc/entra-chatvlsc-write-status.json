@@ -36,6 +36,14 @@
       "webApp"
     ]
   },
+  "current_session_recheck": {
+    "checked_at": "2026-07-06T00:00:00-05:00",
+    "graph_access_token_present": false,
+    "zapier_entra_tools_exposed": false,
+    "computer_use_fallback": "available_but_not_used_for_mutating_entra_settings",
+    "computer_use_note": "UI-based Entra app-registration permission changes require action-time confirmation before submit because they modify cloud access and identity permissions.",
+    "safe_status": "No Entra mutation was attempted in this session."
+  },
   "required_next_step": {
     "permission": "Application.ReadWrite.All or equivalent Application Administrator / Cloud Application Administrator rights for the connected Microsoft Entra identity",
     "safe_executor": "scripts/apply-entra-user-role-mcp.ps1",

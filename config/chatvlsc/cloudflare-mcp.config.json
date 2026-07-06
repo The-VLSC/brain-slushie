@@ -1,7 +1,7 @@
 {
   "$schema": "https://thevlsc.com/schemas/cloudflare-mcp.config.schema.json",
   "name": "ChatVLSC Cloudflare MCP Configuration",
-  "status": "started",
+  "status": "configuration_ready_deploy_pending_auth",
   "service": "VLSC User Role MCP",
   "worker": {
     "name": "vlsc-user-role-mcp",
@@ -28,7 +28,9 @@
       "health": "GET /health",
       "ocrStatus": "GET /ocr/status",
       "ocrSchema": "GET /ocr/schema",
-      "fileSortStatus": "GET /files/sort/status"
+      "fileSortStatus": "GET /files/sort/status",
+      "stagedConfiguration": "GET /configuration/staged",
+      "chatgptAppReadiness": "GET /chatgpt/app/readiness"
     }
   },
   "repository": {
@@ -41,12 +43,20 @@
   "security": {
     "route_map": "config/chatvlsc/secure-api-route-map.json",
     "response_security_policy": "config/chatvlsc/response-security-policy.json",
+    "staged_configuration": "config/chatvlsc/staged-configuration-verification.config.json",
+    "chatgpt_app_readiness": "config/chatvlsc/chatgpt-app-readiness.config.json",
     "custom_hostname_access": "not_configured",
     "tunnel_policy": "Use Cloudflare Tunnel only for private origins or Workers VPC-style access. Public Worker routes remain on Workers.",
     "pending_access_applications": [
       "api.thevlsc.com/admin/v1*",
       "mcp.thevlsc.com/v1*"
     ]
+  },
+  "currentSession": {
+    "wranglerAuth": "not_authenticated",
+    "cloudflareApiToken": "not_present_in_local_env_or_dev_vars",
+    "cloudflarePlugin": "not_exposed_in_current_session",
+    "lastDryRun": "passed"
   },
   "legacyRepositoryPolicy": "Do not include or reintroduce legacy repository references.",
   "secretsPolicy": {
