@@ -1,6 +1,7 @@
 {
   "service": "VLSC User Role MCP",
   "api_uri": "https://api.thevlsc.com/user_role/v1",
+  "mcp_dev_url": "https://mcp.thevlsc.com/v1/",
   "display_url": "https://mcp.thevlsc.com/user_role/auth",
   "chatvlsc_auth_url": "https://chatvlsc.thevlsc.com/auth/v1",
   "ai_agent_username": "chatvlsc@thevlsc.com",
@@ -12,7 +13,13 @@
     "workflow": "https://api.thevlsc.com/user_role/v1/files/sort/workflow"
   },
   "mcp_config": {
-    "configuration": "https://api.thevlsc.com/user_role/v1/mcp/config"
+    "configuration": "https://api.thevlsc.com/user_role/v1/mcp/config",
+    "development_configuration": "https://mcp.thevlsc.com/v1/mcp/config"
+  },
+  "security": {
+    "route_map": "https://api.thevlsc.com/user_role/v1/security/route-map",
+    "development_route_map": "https://mcp.thevlsc.com/v1/security/route-map",
+    "local_config": "config/chatvlsc/secure-api-route-map.json"
   },
   "ocr": {
     "status": "https://api.thevlsc.com/user_role/v1/ocr/status",
