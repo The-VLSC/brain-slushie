@@ -1,0 +1,62 @@
+{
+  "$schema": "https://thevlsc.com/schemas/dns-record-map.schema.json",
+  "name": "ChatVLSC DNS Record Map",
+  "updated_at": "2026-07-05T20:21:55.3002163-05:00",
+  "zone": {
+    "name": "thevlsc.com",
+    "id": "4d161a72527e3f04ba46f7231b84f63b"
+  },
+  "changes": {
+    "risk_level": 2,
+    "mode": "comments_only",
+    "records_created": 0,
+    "records_deleted": 0,
+    "routing_changed": false,
+    "notes": [
+      "Cloudflare DNS tags are not enabled for this zone.",
+      "Cloudflare DNS comments are limited to 100 characters.",
+      "Root AAAA placeholder is read-only and was not modified."
+    ]
+  },
+  "worker_hosts": [
+    {
+      "name": "api.thevlsc.com",
+      "type": "AAAA",
+      "content": "100::",
+      "proxied": true,
+      "comment": "ChatVLSC Worker: /user_role/v1* and /admin/v1*. No secrets in DNS."
+    },
+    {
+      "name": "mcp.thevlsc.com",
+      "type": "AAAA",
+      "content": "100::",
+      "proxied": true,
+      "comment": "ChatVLSC Worker: MCP /v1* and auth display. No secrets in DNS."
+    },
+    {
+      "name": "chatvlsc.thevlsc.com",
+      "type": "AAAA",
+      "content": "100::",
+      "proxied": true,
+      "comment": "ChatVLSC Worker login route /auth/v1*. Validate callbacks server-side."
+    }
+  ],
+  "verification_records": [
+    {
+      "provider": "OpenAI",
+      "content_policy": "public_verification_value_not_republished_in_config"
+    },
+    {
+      "provider": "Microsoft",
+      "content_policy": "public_verification_value_not_republished_in_config"
+    },
+    {
+      "provider": "Notion",
+      "content_policy": "public_verification_value_not_republished_in_config"
+    },
+    {
+      "provider": "Apple",
+      "content_policy": "public_verification_value_not_republished_in_config"
+    }
+  ]
+}
