@@ -18,6 +18,7 @@ Sanitized ChatVLSC route and MCP configuration lives under `config/chatvlsc/`.
 - `mcp-connection-readiness.json`
 - `mcp-protocol-validation.json`
 - `cloudflare-access-mcp.plan.json`
+- `secure-connectivity-gate.config.json`
 
 Do not commit Cloudflare, OpenAI, tunnel, Zapier, Notion, or Entra secrets. Public files may include endpoint names, route classes, and policy intent only.
 
@@ -26,6 +27,8 @@ Cloudflare secret storage is planned in `config/chatvlsc/cloudflare-secret-stora
 MCP connection readiness is tracked in `config/chatvlsc/mcp-connection-readiness.json`. Local Worker protocol validation is tracked in `config/chatvlsc/mcp-protocol-validation.json`: `initialize`, `tools/list`, and sample `tools/call` requests pass locally for current and alpha paths using the Cloudflare workspace harness `scripts/test-chatvlsc-mcp-protocol.ps1`. Production endpoints remain gated by Cloudflare Access; Zapier MCP is configured locally and requires Zapier authorization before tool use.
 
 Cloudflare Access service-auth planning is tracked in `config/chatvlsc/cloudflare-access-mcp.plan.json`. The plan protects current, alpha, and admin MCP/API paths with Cloudflare Access Service Auth and keeps service-token credentials out of GitHub, Notion, Linear, MCP metadata, and browser-delivered JavaScript.
+
+Secure connectivity verification is tracked in `config/chatvlsc/secure-connectivity-gate.config.json`. The local gate checks MCP client config, Cloudflare One/cloudflared service health, protected ChatVLSC current/alpha endpoint behavior, and Zapier OAuth gating without storing response bodies, redirect URLs, or secrets.
 
 Response-header policy is published as sanitized metadata only and is exposed by the Worker at `GET /security/headers`.
 

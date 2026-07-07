@@ -1,0 +1,57 @@
+{
+  "$schema": "https://thevlsc.com/schemas/secure-connectivity-gate.config.schema.json",
+  "name": "ChatVLSC Secure Connectivity Gate",
+  "status": "script_ready_validate_without_secrets",
+  "checked_at": "2026-07-07T10:30:00-05:00",
+  "risk_level": 6,
+  "script": "Cloudfare.config/scripts/test-secure-connectivity.ps1",
+  "scope": {
+    "local_mcp_clients": [
+      "C:\\Users\\chris\\.warp\\.mcp.json",
+      "C:\\Users\\chris\\Documents\\Cloudfare.config\\.mcp.json"
+    ],
+    "cloudflare_local_services": [
+      "cloudflared",
+      "CloudflareWARP",
+      "CloudflareWARPUpdater"
+    ],
+    "production_endpoints": [
+      "https://api.thevlsc.com/user_role/v1",
+      "https://mcp.thevlsc.com/v1/",
+      "https://mcp.zapier.com/api/v1/connect"
+    ]
+  },
+  "probe_policy": {
+    "uses_secrets": false,
+    "follows_redirects": false,
+    "stores_response_bodies": false,
+    "stores_redirect_urls": false,
+    "accepted_protected_endpoint_results": [
+      "cloudflare_access_redirect",
+      "auth_required"
+    ],
+    "accepted_zapier_results": [
+      "auth_required",
+      "zapier_auth_required_or_rejected"
+    ]
+  },
+  "pass_conditions": [
+    "Workspace MCP config includes ChatVLSC alpha and Zapier entries without credentials.",
+    "WARP MCP config includes ChatVLSC current and Zapier entries without credentials.",
+    "Cloudflare WARP is connected and network healthy.",
+    "cloudflared, CloudflareWARP, and CloudflareWARPUpdater services are running.",
+    "Current and alpha ChatVLSC MCP endpoints reject unauthenticated probes through Cloudflare Access or equivalent auth.",
+    "Zapier MCP endpoint is reachable but rejects unauthenticated probes until OAuth is completed."
+  ],
+  "secret_handling": [
+    "Do not pass Cloudflare Access client secret headers unless testing from an approved ignored local environment.",
+    "Do not write response bodies, redirect URLs, bearer tokens, OAuth codes, service-token secrets, or API keys to source.",
+    "Keep cloudflared tunnel tokens only in Cloudflare/cloudflared service configuration."
+  ],
+  "next_steps": [
+    "Run the local Cloudfare.config connectivity gate before each MCP route or auth configuration change.",
+    "After a Cloudflare Access service token is created and stored in an approved secret store, add a separate ignored authenticated probe.",
+    "Retest production JSON-RPC initialize and tools/list only with approved Access credentials.",
+    "Keep this sanitized gate mirrored to GitHub; keep authenticated probe output local only."
+  ]
+}
