@@ -1,0 +1,105 @@
+{
+  "$schema": "https://thevlsc.com/schemas/mcp-protocol-validation.schema.json",
+  "name": "ChatVLSC MCP Protocol Validation",
+  "status": "local_protocol_passed_production_auth_gated",
+  "checked_at": "2026-07-07T10:04:00-05:00",
+  "risk_level": 5,
+  "source_scope": {
+    "worker_source": "C:\\Users\\chris\\Documents\\Cloudfare.config\\src\\index.js",
+    "public_mirror": "C:\\Users\\chris\\Documents\\Cloudfare.config\\ChatVLSC (Codex)\\repos\\brain-slushie\\config\\chatvlsc",
+    "public_mirror_policy": "sanitized_config_only"
+  },
+  "implementation": {
+    "transport": "streamable_http_jsonrpc",
+    "protocol_version": "2024-11-05",
+    "endpoint_paths": [
+      "/user_role/v1",
+      "/v1/",
+      "/mcp"
+    ],
+    "methods": [
+      "initialize",
+      "notifications/initialized",
+      "tools/list",
+      "tools/call"
+    ],
+    "tools": [
+      {
+        "name": "get_service_status",
+        "read_only": true
+      },
+      {
+        "name": "get_identity_policy",
+        "read_only": true
+      },
+      {
+        "name": "evaluate_identity_claims",
+        "read_only": true
+      },
+      {
+        "name": "plan_file_sort",
+        "read_only": true,
+        "plan_only": true
+      }
+    ],
+    "mutating_tools_enabled": false,
+    "secret_values_returned": false
+  },
+  "local_probe_results": [
+    {
+      "name": "current_initialize",
+      "url": "http://127.0.0.1:8787/user_role/v1",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "has_jsonrpc": true,
+      "has_result": true,
+      "marker": "chatvlsc-user-role-mcp"
+    },
+    {
+      "name": "alpha_initialize",
+      "url": "http://127.0.0.1:8787/v1/",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "has_jsonrpc": true,
+      "has_result": true,
+      "marker": "chatvlsc-user-role-mcp"
+    },
+    {
+      "name": "tools_list",
+      "url": "http://127.0.0.1:8787/v1/",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "has_jsonrpc": true,
+      "has_result": true,
+      "marker": "tools=4"
+    },
+    {
+      "name": "service_tool",
+      "url": "http://127.0.0.1:8787/v1/",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "has_jsonrpc": true,
+      "has_result": true,
+      "marker": "mcp_protocol_ready_auth_gated"
+    },
+    {
+      "name": "identity_tool",
+      "url": "http://127.0.0.1:8787/user_role/v1",
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "has_jsonrpc": true,
+      "has_result": true,
+      "marker": "allow"
+    }
+  ],
+  "production_probe_status": {
+    "current_endpoint": "cloudflare_access_required",
+    "alpha_endpoint": "cloudflare_access_required",
+    "reason": "Unauthenticated production probes return Cloudflare Access redirects. Protocol should be retested after deploy with an approved identity or service token."
+  },
+  "next_steps": [
+    "Deploy the Worker source change after Cloudflare authentication is available.",
+    "Retest https://api.thevlsc.com/user_role/v1 and https://mcp.thevlsc.com/v1/ with an approved Cloudflare Access identity or service token.",
+    "Keep mutating MCP tools disabled until Entra, Graph, and Cloudflare secret-store permissions are in place."
+  ]
+}

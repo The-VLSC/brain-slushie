@@ -16,12 +16,13 @@ Sanitized ChatVLSC route and MCP configuration lives under `config/chatvlsc/`.
 - `chatgpt-app-readiness.config.json`
 - `cloudflare-secret-storage.plan.json`
 - `mcp-connection-readiness.json`
+- `mcp-protocol-validation.json`
 
 Do not commit Cloudflare, OpenAI, tunnel, Zapier, Notion, or Entra secrets. Public files may include endpoint names, route classes, and policy intent only.
 
 Cloudflare secret storage is planned in `config/chatvlsc/cloudflare-secret-storage.plan.json`. Current Cloudflare token candidates from `Keys.zip` authenticate account lookup but are denied for Worker secrets and Secrets Store operations, so no secret values are stored in this repository.
 
-MCP connection readiness is tracked in `config/chatvlsc/mcp-connection-readiness.json`. The current and alpha ChatVLSC endpoints are configured locally but remain gated by Cloudflare Access; Zapier MCP is configured locally and requires Zapier authorization before tool use.
+MCP connection readiness is tracked in `config/chatvlsc/mcp-connection-readiness.json`. Local Worker protocol validation is tracked in `config/chatvlsc/mcp-protocol-validation.json`: `initialize`, `tools/list`, and sample `tools/call` requests pass locally for current and alpha paths. Production endpoints remain gated by Cloudflare Access; Zapier MCP is configured locally and requires Zapier authorization before tool use.
 
 Response-header policy is published as sanitized metadata only and is exposed by the Worker at `GET /security/headers`.
 
