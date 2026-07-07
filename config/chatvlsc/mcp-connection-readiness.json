@@ -1,0 +1,198 @@
+{
+  "$schema": "https://thevlsc.com/schemas/mcp-connection-readiness.schema.json",
+  "name": "ChatVLSC MCP Connection Readiness",
+  "status": "configured_auth_gated",
+  "checked_at": "2026-07-07T09:49:04-05:00",
+  "risk_level": 6,
+  "probe_policy": {
+    "mode": "unauthenticated_no_secret_probe",
+    "follow_redirects": false,
+    "stored_response_bodies": false,
+    "stored_redirect_urls": false
+  },
+  "local_mcp_configuration": [
+    {
+      "client": "Cloudflare One / Warp global MCP",
+      "path": "C:\\Users\\chris\\.warp\\.mcp.json",
+      "servers": [
+        "user_role",
+        "Zapier"
+      ],
+      "stores_credentials": false
+    },
+    {
+      "client": "Cloudfare.config workspace MCP",
+      "path": "C:\\Users\\chris\\Documents\\Cloudfare.config\\.mcp.json",
+      "servers": [
+        "chatvlsc_dev",
+        "Zapier"
+      ],
+      "stores_credentials": false
+    }
+  ],
+  "cloudflare_one_client": {
+    "warp_status": "Connected",
+    "network": "healthy",
+    "services": [
+      {
+        "name": "CloudflareWARP",
+        "status": "Running",
+        "start_type": "Automatic"
+      },
+      {
+        "name": "CloudflareWARPUpdater",
+        "status": "Running",
+        "start_type": "Automatic"
+      },
+      {
+        "name": "cloudflared",
+        "status": "Running",
+        "start_type": "Automatic"
+      }
+    ],
+    "secret_handling": "cloudflared tunnel tokens remain only in service configuration and must not be copied into Worker secrets, GitHub, Notion, or MCP metadata."
+  },
+  "servers": [
+    {
+      "name": "ChatVLSC current user-role MCP",
+      "mcp_config_name": "user_role",
+      "url": "https://api.thevlsc.com/user_role/v1",
+      "configured_in": [
+        "C:\\Users\\chris\\.warp\\.mcp.json"
+      ],
+      "auth_status": "cloudflare_access_required",
+      "probe_results": [
+        {
+          "name": "chatvlsc_current_health",
+          "method": "GET",
+          "url": "https://api.thevlsc.com/user_role/v1/health",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        },
+        {
+          "name": "chatvlsc_current_mcp_config",
+          "method": "GET",
+          "url": "https://api.thevlsc.com/user_role/v1/mcp/config",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        },
+        {
+          "name": "chatvlsc_current_initialize",
+          "method": "POST",
+          "url": "https://api.thevlsc.com/user_role/v1",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        }
+      ],
+      "readiness": "configured_but_not_protocol_verified_until_cloudflare_access_identity_or_service_token_is_available"
+    },
+    {
+      "name": "ChatVLSC alpha development MCP",
+      "mcp_config_name": "chatvlsc_dev",
+      "url": "https://mcp.thevlsc.com/v1/",
+      "configured_in": [
+        "C:\\Users\\chris\\Documents\\Cloudfare.config\\.mcp.json"
+      ],
+      "auth_status": "cloudflare_access_required",
+      "probe_results": [
+        {
+          "name": "chatvlsc_alpha_health",
+          "method": "GET",
+          "url": "https://mcp.thevlsc.com/v1/health",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        },
+        {
+          "name": "chatvlsc_alpha_mcp_config",
+          "method": "GET",
+          "url": "https://mcp.thevlsc.com/v1/mcp/config",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        },
+        {
+          "name": "chatvlsc_alpha_initialize",
+          "method": "POST",
+          "url": "https://mcp.thevlsc.com/v1/",
+          "status": 302,
+          "content_type": "text/html; charset=UTF-8",
+          "response_kind": "cloudflare_access_redirect",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        }
+      ],
+      "readiness": "configured_but_not_protocol_verified_until_cloudflare_access_identity_or_service_token_is_available"
+    },
+    {
+      "name": "Zapier MCP",
+      "mcp_config_name": "Zapier",
+      "url": "https://mcp.zapier.com/api/v1/connect",
+      "configured_in": [
+        "C:\\Users\\chris\\.warp\\.mcp.json",
+        "C:\\Users\\chris\\Documents\\Cloudfare.config\\.mcp.json"
+      ],
+      "auth_status": "zapier_oauth_required",
+      "probe_results": [
+        {
+          "name": "zapier_connect_get",
+          "method": "GET",
+          "url": "https://mcp.zapier.com/api/v1/connect",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8",
+          "response_kind": "jsonrpc_auth_error",
+          "jsonrpc_marker": true,
+          "mcp_marker": false
+        },
+        {
+          "name": "zapier_initialize",
+          "method": "POST",
+          "url": "https://mcp.zapier.com/api/v1/connect",
+          "status": 500,
+          "content_type": "",
+          "response_kind": "json_auth_error",
+          "jsonrpc_marker": false,
+          "mcp_marker": false
+        }
+      ],
+      "readiness": "configured_pending_zapier_authorization"
+    }
+  ],
+  "cloudflare_secret_store": {
+    "status": "blocked_current_cloudflare_token_lacks_secret_permissions",
+    "plan": "config/chatvlsc/cloudflare-secret-storage.plan.json",
+    "safe_importer": "scripts/import-chatvlsc-cloudflare-secrets.ps1",
+    "worker_secret_permission": "denied_code_10000",
+    "secrets_store_permission": "denied_code_10000"
+  },
+  "microsoft_graph": {
+    "status": "blocked_no_clean_graph_access_token_present",
+    "required_token_handling": "Use a clean Microsoft Graph access token or app credential with the required app-registration permissions. Do not reuse mixed login handoff text.",
+    "configuration_target": "config/chatvlsc/entra-user-role-mcp.graph.json",
+    "safe_executor": "scripts/apply-entra-user-role-mcp.ps1"
+  },
+  "openai_platform": {
+    "status": "blocked_secure_key_setup_connector_or_owner_selection_required",
+    "required_token_handling": "Select one rotated OpenAI API key and store it in Cloudflare Worker secrets or the account Secrets Store only after Cloudflare secret-write authorization is available."
+  },
+  "next_steps": [
+    "Authorize Zapier MCP from the connected client before using Zapier tools.",
+    "Create or authorize Cloudflare Access service-token policy for api.thevlsc.com/user_role/v1 and mcp.thevlsc.com/v1 clients.",
+    "Use a Cloudflare token with Workers secret edit and Secrets Store write permission, then run scripts/import-chatvlsc-cloudflare-secrets.ps1.",
+    "Provide a clean Microsoft Graph token or app credential with Application.ReadWrite.All before running scripts/apply-entra-user-role-mcp.ps1.",
+    "Configure SSO/OIDC/SAML/SCIM only after owner approval and Graph permissions are available."
+  ]
+}

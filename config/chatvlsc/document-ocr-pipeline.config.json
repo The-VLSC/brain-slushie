@@ -4,8 +4,8 @@
   "status": "database_started",
   "repository": {
     "provider": "github",
-    "repository_full_name": "support-thevlsc/brain-slushie",
-    "repository_url": "https://github.com/support-thevlsc/brain-slushie",
+    "repository_full_name": "The-VLSC/brain-slushie",
+    "repository_url": "https://github.com/The-VLSC/brain-slushie",
     "default_branch": "main",
     "visibility": "public",
     "publish_policy": "sanitized_config_only",

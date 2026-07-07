@@ -41,8 +41,8 @@
     "database_id": "06ce7692-f710-46a2-9a5f-d5428f941e5c"
   },
   "repository": {
-    "repository_full_name": "support-thevlsc/brain-slushie",
-    "repository_url": "https://github.com/support-thevlsc/brain-slushie",
+    "repository_full_name": "The-VLSC/brain-slushie",
+    "repository_url": "https://github.com/The-VLSC/brain-slushie",
     "publish_policy": "sanitized_config_only"
   },
   "identity_policy": {

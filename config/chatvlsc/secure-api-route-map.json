@@ -165,6 +165,7 @@
   "key_usage_policy": {
     "allowed_storage": [
       "Cloudflare Worker secrets",
+      "Cloudflare account Secrets Store when a store is authorized and bound for Worker use",
       "Cloudflare Access service-token credentials",
       "local ignored .dev.vars for development only"
     ],
@@ -173,8 +174,22 @@
       "GitHub repository files",
       "client-side browser JavaScript",
       "URL query strings",
-      "MCP display metadata"
+      "MCP display metadata",
+      "mixed login handoff captures such as ChatVLSC Token.txt"
     ],
+    "cloudflare_key_store_status": {
+      "worker_secret_permission": "denied_code_10000",
+      "secrets_store_permission": "denied_code_10000",
+      "secrets_store_cli": "available_open_beta",
+      "plan": "config/chatvlsc/cloudflare-secret-storage.plan.json"
+    },
+    "secret_inventory": {
+      "openai_api_key_files": 11,
+      "openai_distinct_values": 11,
+      "cloudflare_token_candidates": "active_for_account_lookup_but_denied_for_secret_writes",
+      "microsoft_graph_access_token": "not_found_clean_token",
+      "cloudflared_tunnel_token": "service_config_only"
+    },
     "headers": {
       "api_tokens": "Authorization: Bearer <token>",
       "cloudflare_access_service_tokens": [
@@ -196,7 +211,11 @@
   "optimization_decisions": [
     "Keep public UI/auth display routes on Workers, not Tunnel.",
     "Use Tunnel only for private origins or Workers VPC-style access to private services.",
+    "Keep the public homepage route on the dedicated homepage Worker and the API/admin/MCP/auth prefixes on the user-role MCP Worker.",
+    "Use one normalized Worker route handler for /user_role/v1, /admin/v1, /v1, /auth/v1, and /user_role/auth prefixes.",
+    "Set assets.run_worker_first=true so API and MCP routes enter Worker code before static asset lookup; /assets/* remains served through the ASSETS binding.",
     "Require Access or equivalent Worker-side bearer-token enforcement before treating admin and development MCP endpoints as protected.",
+    "Do not use mixed ChatVLSC Token handoff text for Microsoft Graph; require a clean Graph token with Application.ReadWrite.All.",
     "Keep sanitized endpoint maps in GitHub and Notion; keep credentials only in secret stores.",
     "Preserve request_limit_fail_open=false on all Worker routes."
   ]
