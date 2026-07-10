@@ -1,8 +1,8 @@
 {
   "$schema": "https://thevlsc.com/schemas/cloudflare-access-mcp.plan.schema.json",
   "name": "ChatVLSC Cloudflare Access MCP Plan",
-  "status": "planned_validate_only_current_token_permissions_unverified",
-  "checked_at": "2026-07-10T02:14:00-05:00",
+  "status": "planned_remote_check_current_token_denied_for_access_writes",
+  "checked_at": "2026-07-10T10:18:00-05:00",
   "risk_level": 7,
   "cloudflare": {
     "account_id": "3213c2f6b79055d92921a6b81d1bedeb",
@@ -33,6 +33,15 @@
     ],
     "storage_policy": "Store service-token credentials only in approved client secret stores, Cloudflare Secrets Store when authorized, or local ignored env files for development. Never write them to GitHub, Notion, Linear, MCP metadata, or browser-delivered JavaScript.",
     "rotation_policy": "Rotate immediately if copied into chat, logs, source, Notion, Linear, GitHub, or screenshots."
+  },
+  "latest_remote_check": {
+    "checked_at": "2026-07-10T10:18:00-05:00",
+    "mode": "remote_check_no_writes",
+    "token_source": "explicit_local_zip_entry_not_published",
+    "stores_secret_values": false,
+    "access_apps": "denied_or_unavailable_http_403",
+    "service_tokens": "denied_or_unavailable_http_403",
+    "apply_attempted": false
   },
   "access_applications": [
     {

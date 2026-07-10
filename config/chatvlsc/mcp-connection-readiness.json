@@ -293,8 +293,19 @@
     "status": "blocked_current_cloudflare_token_lacks_secret_permissions",
     "plan": "config/chatvlsc/cloudflare-secret-storage.plan.json",
     "safe_importer": "scripts/import-chatvlsc-cloudflare-secrets.ps1",
-    "worker_secret_permission": "denied_code_10000",
-    "secrets_store_permission": "denied_code_10000"
+    "worker_secret_permission": "denied_or_unavailable_http_403",
+    "secrets_store_permission": "denied_or_unavailable_http_403",
+    "checked_at": "2026-07-10T10:18:00-05:00",
+    "stores_secret_values": false
+  },
+  "cloudflare_access_remote_check": {
+    "status": "blocked_current_cloudflare_token_lacks_access_app_and_service_token_permissions",
+    "plan": "config/chatvlsc/cloudflare-access-mcp.plan.json",
+    "checked_at": "2026-07-10T10:18:00-05:00",
+    "access_apps": "denied_or_unavailable_http_403",
+    "service_tokens": "denied_or_unavailable_http_403",
+    "apply_attempted": false,
+    "stores_secret_values": false
   },
   "microsoft_graph": {
     "status": "blocked_no_clean_graph_access_token_present",
@@ -302,7 +313,16 @@
     "approved_target_object_id": "9c392dd7-7e0b-49a8-be0e-1269358f6f59",
     "required_token_handling": "Use a clean Microsoft Graph access token or app credential with the required app-registration permissions. Do not reuse mixed login handoff text.",
     "configuration_target": "config/entra-user-role-mcp.graph.json",
-    "safe_executor": "scripts/apply-entra-user-role-mcp.ps1"
+    "safe_executor": "scripts/apply-entra-user-role-mcp.ps1",
+    "latest_validate_only": {
+      "checked_at": "2026-07-10T10:18:30-05:00",
+      "ok": true,
+      "display_name": "ChatVLSC",
+      "role_count": 4,
+      "scope_count": 3,
+      "required_permission": "Application.ReadWrite.All",
+      "write_attempted": false
+    }
   },
   "openai_platform": {
     "status": "reauth_required",
