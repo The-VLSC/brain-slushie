@@ -1,0 +1,61 @@
+{
+  "$schema": "./schemas/file-sort-workflow.config.schema.json",
+  "name": "ChatVLSC File Sort Workflow",
+  "status": "plan_only_access_gated",
+  "worker": {
+    "name": "vlsc-user-role-mcp",
+    "workflowBinding": "DIRECTORY_SORT_WORKFLOW",
+    "workflowClass": "DirectorySortWorkflow",
+    "workflowName": "chatvlsc-directory-sort-workflow"
+  },
+  "identityPolicy": {
+    "tenantId": "cdfffb2c-ef54-4854-9702-b9916ac552d1",
+    "primaryDomain": "thevlsc.com",
+    "agentUsername": "chatvlsc@thevlsc.com",
+    "externalIdentityProvidersAllowed": true,
+    "externalIdentityRule": "External identity providers are allowed when the external identity GUID matches the authorized member GUID.",
+    "acceptedGuidClaims": [
+      "oid",
+      "sub",
+      "externalUserGuid",
+      "providerUserGuid",
+      "memberGuid"
+    ]
+  },
+  "testFixture": {
+    "fixtureKind": "synthetic",
+    "sourceRef": "synthetic://chatvlsc/file-sort-test",
+    "fixtureRoot": "data\\file-sort-test\\synthetic",
+    "manifestPath": "data\\file-sort-test\\file-sort-test.manifest.json",
+    "prepareScript": "scripts\\prepare-file-sort-test-fixture.ps1",
+    "maxFiles": 8,
+    "containsSourceDocuments": false,
+    "containsAbsolutePaths": false
+  },
+  "publicEndpoints": {
+    "fileSortStatus": "GET /files/sort/status",
+    "fileSortPlan": "POST /files/sort/plan",
+    "fileSortWorkflow": "POST /files/sort/workflow",
+    "identityPolicy": "GET /identity/policy",
+    "identityEvaluate": "POST /identity/evaluate"
+  },
+  "guards": {
+    "planOnly": true,
+    "noDelete": true,
+    "noMove": true,
+    "noRename": true,
+    "noCloudWrite": true,
+    "accessJwtRequired": true,
+    "workflowPersistenceEnabled": false,
+    "maxManifestItems": 500,
+    "maxRequestBytes": 262144,
+    "requiresOwnerApprovalBeforeExecution": true
+  },
+  "notionSourcesReviewed": [
+    "ChatVLSC App Setup Progress Log",
+    "Primary Domain",
+    "Microsoft Entra Tenant ID",
+    "ChatVLSC Connector Layer",
+    "ChatVLSC Code - MCP Integration Directive and Review Packet"
+  ]
+}

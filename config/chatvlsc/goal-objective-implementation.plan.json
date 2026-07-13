@@ -1,0 +1,81 @@
+{
+  "$schema": "./schemas/goal-objective-implementation-plan.schema.json",
+  "name": "ChatVLSC Goal Objective Implementation Plan",
+  "generated_at": "2026-07-13T09:30:22Z",
+  "status": "core_cloudflare_surface_deployed_external_identity_and_storage_gates_remaining",
+  "completed": [
+    {
+      "capability": "Professional ChatVLSC homepage and test demo",
+      "evidence": [
+        "https://www.thevlsc.com/",
+        "https://test.thevlsc.com/chatvlsc/",
+        "Cloudflare Worker thevlsc-www-homepage"
+      ]
+    },
+    {
+      "capability": "Local singularity optimization workspace",
+      "evidence": [
+        "C:\\chatvlsc (codex main)\\singularity (skill optimization protocol)",
+        "Local commit 017c294"
+      ]
+    },
+    {
+      "capability": "Access-gated file-sort planning",
+      "evidence": [
+        "POST /files/sort/plan requires a verified Cloudflare Access JWT",
+        "Manifest limits and contained relative-path validation are enforced",
+        "Persistent Workflow execution is disabled"
+      ]
+    },
+    {
+      "capability": "OCR database privacy and integrity contract",
+      "evidence": [
+        "D1 migrations 0001 and 0002 are recorded remotely",
+        "Nine validation and immutability triggers are live",
+        "Invalid status and page-number probes are rejected",
+        "Application tables contain zero rows after verification"
+      ]
+    },
+    {
+      "capability": "Secrets and binding preservation",
+      "evidence": [
+        "Two Secrets Store bindings remain attached",
+        "D1, AI, Assets, and Workflow bindings remain attached",
+        "Secret values were not inspected or copied"
+      ]
+    }
+  ],
+  "remaining_gates": [
+    {
+      "capability": "Entra app registration and role assignment",
+      "gate": "Application.ReadWrite.All or an Application Administrator / Cloud Application Administrator identity is required."
+    },
+    {
+      "capability": "OpenAI ChatGPT app registration and key lifecycle",
+      "gate": "Secure OpenAI Platform organization/project target access is required."
+    },
+    {
+      "capability": "Private source-document storage",
+      "gate": "Approve retention, jurisdiction, ownership/access scope, and an R2 or equivalent private storage binding before ingestion."
+    },
+    {
+      "capability": "DatabaseRLI production use",
+      "gate": "Define the production data model and access boundary before provisioning."
+    },
+    {
+      "capability": "RLI Agent (dev.1) Fediland publication",
+      "gate": "Provide and verify the stable Fediland workspace group identifier."
+    },
+    {
+      "capability": "Payments",
+      "gate": "Planning only until product, compliance, processor, and approval requirements are defined."
+    }
+  ],
+  "safety": {
+    "no_credentials_in_source": true,
+    "no_source_document_ingestion": true,
+    "no_file_move_delete_or_rename": true,
+    "access_fail_closed": true,
+    "payment_execution_enabled": false
+  }
+}

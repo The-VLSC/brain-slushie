@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp.thevlsc.com/schemas/file-sort-workflow.config.schema.json",
+  "title": "ChatVLSC File Sort Workflow Configuration",
+  "type": "object",
+  "required": ["name", "status", "worker", "identityPolicy", "testFixture", "guards"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "status": { "const": "plan_only_access_gated" },
+    "testFixture": {
+      "type": "object",
+      "required": ["fixtureKind", "sourceRef", "manifestPath", "containsSourceDocuments", "containsAbsolutePaths"],
+      "properties": {
+        "fixtureKind": { "const": "synthetic" },
+        "sourceRef": { "pattern": "^synthetic://" },
+        "manifestPath": { "type": "string", "minLength": 1 },
+        "containsSourceDocuments": { "const": false },
+        "containsAbsolutePaths": { "const": false },
+        "maxFiles": { "type": "integer", "minimum": 1, "maximum": 8 }
+      },
+      "additionalProperties": true
+    },
+    "guards": {
+      "type": "object",
+      "required": ["planOnly", "noDelete", "noMove", "noRename", "accessJwtRequired", "workflowPersistenceEnabled"],
+      "properties": {
+        "planOnly": { "const": true },
+        "noDelete": { "const": true },
+        "noMove": { "const": true },
+        "noRename": { "const": true },
+        "accessJwtRequired": { "const": true },
+        "workflowPersistenceEnabled": { "const": false },
+        "maxManifestItems": { "type": "integer", "maximum": 500 },
+        "maxRequestBytes": { "type": "integer", "maximum": 262144 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

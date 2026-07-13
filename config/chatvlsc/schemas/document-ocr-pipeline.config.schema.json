@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp.thevlsc.com/schemas/document-ocr-pipeline.config.schema.json",
+  "title": "ChatVLSC Document OCR Pipeline Configuration",
+  "type": "object",
+  "required": ["name", "status", "stageOne", "stageThree", "cloudflare", "privateStorage", "guards"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "status": { "const": "database_contract_hardening" },
+    "stageOne": {
+      "type": "object",
+      "required": ["sourceTypes", "outputs", "reviewFlags"],
+      "properties": {
+        "sourceTypes": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+        "outputs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "reviewFlags": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      },
+      "additionalProperties": true
+    },
+    "stageThree": {
+      "type": "object",
+      "required": ["status", "batchLimit", "openaiApiKey"],
+      "properties": {
+        "batchLimit": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "openaiApiKey": {
+          "type": "object",
+          "required": ["binding", "status"],
+          "properties": {
+            "binding": { "const": "OPENAI_API_KEY" },
+            "status": { "const": "secrets_store_binding_configured" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "privateStorage": {
+      "type": "object",
+      "required": ["status", "sourceDocumentsStored", "requiredBeforeIngestion"],
+      "properties": {
+        "status": { "const": "not_enabled" },
+        "sourceDocumentsStored": { "const": false },
+        "requiredBeforeIngestion": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      },
+      "additionalProperties": true
+    },
+    "guards": {
+      "type": "object",
+      "required": ["noPublicSensitiveConfig", "ingestionEnabled", "sourceContentPublic"],
+      "properties": {
+        "noPublicSensitiveConfig": { "const": true },
+        "ingestionEnabled": { "const": false },
+        "sourceContentPublic": { "const": false }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

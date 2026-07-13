@@ -1,8 +1,9 @@
 {
   "$schema": "https://thevlsc.com/schemas/cloudflare-mcp.config.schema.json",
   "name": "ChatVLSC Cloudflare MCP Configuration",
-  "status": "mcp_protocol_ready_production_deploy_auth_gated",
-  "service": "VLSC User Role MCP",
+  "status": "managed_oauth_hardened_worker_and_d1_live_external_integrations_pending",
+  "service": "ChatVLSC (1.0.0)",
+  "version": "1.0.0",
   "worker": {
     "name": "vlsc-user-role-mcp",
     "account_id": "3213c2f6b79055d92921a6b81d1bedeb",
@@ -17,16 +18,19 @@
     "transport": "https",
     "server_name": "chatvlsc.thevlsc.mcp",
     "api_uri": "https://api.thevlsc.com/user_role/v1",
+    "mcp_endpoint": "https://api.thevlsc.com/user_role/v1/mcp",
     "rli_assistant_server_name": "rli_assistant",
     "rli_assistant_url": "https://mcp.thevlsc.com/v1/",
+    "rli_assistant_mcp_endpoint": "https://mcp.thevlsc.com/v1/mcp",
     "rli_assistant_renamed_from": "legacy_non_primary_chatvlsc_name",
     "development_mcp_url": "https://mcp.thevlsc.com/v1/",
     "display_url": "https://mcp.thevlsc.com/user_role/auth",
     "chatvlsc_auth_url": "https://chatvlsc.thevlsc.com/auth/v1",
     "plannedEndpoints": {
-      "mcpJsonRpc": "POST /",
-      "rliAssistantJsonRpc": "POST /v1/",
-      "developmentMcpJsonRpc": "POST /v1/ (legacy alias for RLI Assistant)",
+      "mcpJsonRpc": "POST /mcp",
+      "legacyMcpJsonRpc": "POST /",
+      "rliAssistantJsonRpc": "POST /v1/mcp",
+      "developmentMcpJsonRpc": "POST /v1/mcp (legacy alias for RLI Assistant)",
       "configuration": "GET /mcp/config",
       "rliAssistantConfiguration": "GET /v1/mcp/config",
       "developmentConfiguration": "GET /v1/mcp/config (legacy alias for RLI Assistant)",
@@ -41,11 +45,21 @@
       "workersAiChat": "POST /workers-ai/chat",
       "stagedConfiguration": "GET /configuration/staged",
       "chatgptAppReadiness": "GET /chatgpt/app/readiness",
-      "identityReconciliation": "GET /identity/reconciliation"
+      "identityReconciliation": "GET /identity/reconciliation",
+      "identityVirtualEnvironments": "GET /identity/virtual-environments",
+      "verifiedIdentitySession": "GET /identity/session",
+      "capabilityEvaluation": "POST /authorization/capabilities/evaluate",
+      "zapierIntegrationContract": "GET /integrations/zapier"
     },
     "protocol": {
       "transport": "streamable_http_jsonrpc",
-      "protocol_version": "2024-11-05",
+      "protocol_version": "2025-11-25",
+      "supported_protocol_versions": [
+        "2025-11-25",
+        "2025-06-18",
+        "2025-03-26",
+        "2024-11-05"
+      ],
       "methods": [
         "initialize",
         "notifications/initialized",
@@ -56,14 +70,17 @@
         "get_service_status",
         "get_identity_policy",
         "get_workspace_access_reconciliation",
+        "get_zapier_integration_contract",
+        "get_release_readiness",
+        "get_openai_runtime_status",
         "evaluate_identity_claims",
         "plan_file_sort"
       ],
       "mutating_tools_enabled": false,
       "local_validation": "passed_2026-07-09_current_chatvlsc",
-      "tool_count": 5
+      "tool_count": 8
     },
-    "primary_implementation_route": "https://api.thevlsc.com/user_role/v1",
+    "primary_implementation_route": "https://api.thevlsc.com/user_role/v1/mcp",
     "secondary_route": "https://mcp.thevlsc.com/v1/",
     "secondary_route_name": "RLI Assistant",
     "legacy_secondary_alias": "chatvlsc_dev",
@@ -81,33 +98,43 @@
     "response_security_policy": "config/chatvlsc/response-security-policy.json",
     "staged_configuration": "config/chatvlsc/staged-configuration-verification.config.json",
     "chatgpt_app_readiness": "config/chatvlsc/chatgpt-app-readiness.config.json",
-    "custom_hostname_access": "not_configured",
+    "identity_virtual_environments": "config/chatvlsc/identity-virtual-environments.public.json",
+    "connector_runtime_path": "config/chatvlsc/connector-runtime-path.config.json",
+    "cloudflare_one_team_rename": "config/chatvlsc/cloudflare-one-team-rename.public.json",
+    "entra_role_delta": "config/chatvlsc/entra-role-virtual-environments.public.json",
+    "zapier_version_readiness": "config/chatvlsc/zapier-version-readiness.json",
+    "custom_hostname_access": "managed_oauth_enabled_owner_allow_policy_active",
     "tunnel_policy": "Use Cloudflare Tunnel only for private origins or Workers VPC-style access. Public Worker routes remain on Workers.",
-    "pending_access_applications": [
-      "api.thevlsc.com/admin/v1*",
-      "mcp.thevlsc.com/v1*"
-    ]
+    "pending_access_applications": ["api.thevlsc.com/admin/v1* path separation"],
+    "managed_oauth": {
+      "access_app_id": "8cec14e9-fb84-48c4-bbac-7da322716500",
+      "status": "enabled",
+      "owner_policy_id": "49105ca4-45c4-4755-8752-eaaf25aab0b5",
+      "unauthenticated_result": "401_with_www_authenticate",
+      "resource_metadata_discovery": "verified"
+    }
   },
   "currentSession": {
     "wranglerAuth": "not_authenticated_wrangler_whoami_requires_login",
     "cloudflareApiToken": "not_present_in_process_environment",
-    "cloudflarePlugin": "observability_read_available_deploy_write_not_available",
+    "cloudflarePlugin": "authenticated_content_settings_d1_and_access_api_available",
     "cloudflareOneClient": "installed_running_connected_network_healthy",
     "cloudflaredService": "installed_running_tunnel_token_remains_service_config_only",
-    "wranglerVersion": "4.107.0",
-    "secretsStore": "wrangler_secrets_store_available_open_beta_but_current_token_lacks_permission",
-    "workerSecrets": "current_token_lacks_worker_secret_list_write_permission",
+    "wranglerVersion": "4.110.0",
+    "secretsStore": "default_store_has_chatvlsc_cloudflare_and_openai_aliases_active_no_values_returned",
+    "workerSecrets": "active_worker_version_daf7d239_uses_two_secrets_store_secret_bindings",
     "lastDryRun": "passed",
     "localMcpProtocol": "passed_current_chatvlsc_user_role_v1_initialize_tools_list_and_sample_tools_call_with_rli_assistant_v1_initialize"
   },
   "productionDeployGate": {
     "config": "config/chatvlsc/cloudflare-production-deploy.gate.json",
-    "status": "blocked_not_authenticated",
+    "status": "deployed_hardened_external_integrations_pending",
     "dryRun": "passed",
     "wranglerWhoami": "not_authenticated",
-    "liveWorkerCode": "stale_vs_local_missing_current_mcp_jsonrpc_reconciliation_surface_and_chatvlsc_alias_metadata",
-    "deployAttempted": false,
-    "requiredNextGate": "Run wrangler login or provide a scoped Cloudflare deploy token outside source, then run pnpm run deploy."
+    "liveWorkerCode": "version_daf7d239_9019_42a1_a754_bfd9792be027_active_at_100_percent",
+    "deployAttempted": true,
+    "deploymentId": "3bdc1d28-fca4-40ae-8f22-bb4721ca67f9",
+    "requiredNextGate": "Complete Entra and OpenAI platform authorization, define private object storage and retention, and resolve the Fediland group identifier. Wrangler login remains an optional local deployment fallback."
   },
   "cloudflareAi": {
     "api": "workers_ai_run",
@@ -128,7 +155,7 @@
   },
   "cloudflareAgentSetup": {
     "sourceUrl": "https://developers.cloudflare.com/agent-setup/prompt.md",
-    "fetchedAt": "2026-07-09",
+    "fetchedAt": "2026-07-12T22:46:59.6183190-05:00",
     "codexMcpServers": [
       "https://mcp.cloudflare.com/mcp",
       "https://docs.mcp.cloudflare.com/mcp",
@@ -143,14 +170,14 @@
   "legacyRepositoryPolicy": "Do not include or reintroduce legacy repository references.",
   "secretStorePlan": {
     "config": "config/chatvlsc/cloudflare-secret-storage.plan.json",
-    "status": "blocked_current_cloudflare_token_lacks_secret_permissions",
+    "status": "chatvlsc_openai_alias_active_worker_binding_configured_graph_secret_missing",
     "runtimeDestination": "Cloudflare Worker secrets for currently deployed Worker environment variables",
     "catalogDestination": "Cloudflare Secrets Store when an account token with Secrets Store permissions is available",
     "safeImporter": "scripts/import-chatvlsc-cloudflare-secrets.ps1"
   },
   "secretsPolicy": {
     "cloudflareApiToken": "Worker secret only when token has Worker secret write permission; never commit or publish",
-    "openaiApiKey": "Use only a key selected through the secure OpenAI Platform connector before mapping one to OPENAI_API_KEY",
+    "openaiApiKey": "Bound from Cloudflare Secrets Store alias CHATVLSC_OPENAI_API_KEY_V2; never return or log the value",
     "microsoftGraph": "No clean Graph access token was found; do not use mixed ChatVLSC Token handoff text for Graph writes",
     "cloudflaredTunnelToken": "Cloudflared service config only; not a Worker runtime secret",
     "notion": "No secrets in Notion",

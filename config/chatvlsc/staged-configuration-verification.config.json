@@ -1,8 +1,8 @@
 {
   "$schema": "https://thevlsc.com/schemas/staged-configuration-verification.schema.json",
   "name": "ChatVLSC Staged Configuration Verification",
-  "status": "pass_five_ready",
-  "generated_at": "2026-07-06T00:00:00-05:00",
+  "status": "five_pass_complete_cloudflare_and_d1_deployed",
+  "generated_at": "2026-07-13T09:30:22Z",
   "risk_policy": "Proceed with changes below risk level 9 when they do not expose credentials, secrets, passwords, tokens, refresh tokens, client secrets, certificates, or recovery codes.",
   "service": {
     "name": "VLSC User Role MCP",
@@ -44,28 +44,30 @@
     {
       "id": 3,
       "name": "Implementation",
-      "status": "ready",
+      "status": "complete",
       "checks": [
-        "Expose GET /configuration/staged.",
-        "Expose GET /chatgpt/app/readiness.",
-        "Mirror sanitized config to The-VLSC/brain-slushie.",
-        "Document Cloudflare Worker secret and Secrets Store import plan without storing secret values in source."
+        "GET /configuration/staged and GET /chatgpt/app/readiness are deployed behind Cloudflare Access.",
+        "File-sort planning is Access JWT gated, bounded, path-contained, and persistence-disabled.",
+        "D1 migration 0002_ocr_privacy_integrity.sql is applied remotely.",
+        "Cloudflare Secrets Store bindings remain attached without reading or copying secret values."
       ]
     },
     {
       "id": 4,
       "name": "Verification",
-      "status": "ready",
+      "status": "complete",
       "checks": [
-        "Run pnpm run check.",
-        "Parse every config JSON file.",
-        "Probe live security, identity, staged, and ChatGPT readiness endpoints after deployment."
+        "pnpm run check passed with Workflow, D1, Secrets Store, AI, and Assets bindings.",
+        "All configuration JSON and local schemas parse and validate.",
+        "Remote D1 rejects invalid document status and invalid page numbers.",
+        "Unauthenticated application routes fail closed at Cloudflare Access with HTTP 401.",
+        "The live Worker retains Assets, D1, Workflow, AI, and both Secrets Store bindings."
       ]
     },
     {
       "id": 5,
       "name": "Documentation",
-      "status": "ready",
+      "status": "complete",
       "checks": [
         "Update Notion progress log with applied changes and gates.",
         "Keep Entra app-registration write status current.",
@@ -74,14 +76,14 @@
     }
   ],
   "current_gates": {
-    "cloudflare_deploy": "Prior local Cloudflare token checks authenticated account lookup only; current deploy remains gated on a scoped token or Wrangler login.",
-    "cloudflare_account_wide_changes": "Cloudflare plugin namespace is not exposed in this session; current local API token lacks secret-store permissions.",
+    "cloudflare_deploy": "Completed through the authenticated Cloudflare connector. Local Wrangler login remains optional for future CLI deploys.",
+    "cloudflare_account_wide_changes": "Authenticated Cloudflare API access is available; changes remain scoped and secret values are never read or copied.",
     "entra_app_registration_write": "Microsoft Graph write requires Application.ReadWrite.All or Application Administrator / Cloud Application Administrator rights.",
     "microsoft_graph_token": "No clean Microsoft Graph access token is available for Graph automation.",
     "openai_chatgpt_app_creation": "OpenAI Platform connector target discovery was rejected by the connected account.",
     "cloudflare_one_client": "Cloudflare One Client is connected and healthy; no VPN or security settings were changed.",
     "cloudflared_service": "Cloudflared service is running; tunnel token stays in service configuration and is not copied into Worker secrets.",
-    "zapier_entra_execution": "Zapier/Entra tools are not exposed in this session."
+    "zapier_entra_execution": "No authorized Microsoft Graph write was performed; Entra remains permission-gated."
   },
   "safe_public_endpoints": {
     "staged_configuration": "https://api.thevlsc.com/user_role/v1/configuration/staged",

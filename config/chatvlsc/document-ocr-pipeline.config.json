@@ -1,7 +1,7 @@
 {
-  "$schema": "https://thevlsc.com/schemas/document-ocr-pipeline.config.schema.json",
+  "$schema": "./schemas/document-ocr-pipeline.config.schema.json",
   "name": "ChatVLSC Document OCR Pipeline",
-  "status": "database_started",
+  "status": "remote_integrity_migration_applied_ingestion_disabled",
   "repository": {
     "provider": "github",
     "repository_full_name": "The-VLSC/brain-slushie",
@@ -14,7 +14,7 @@
   "stageOne": {
     "description": "Initial OCR intake from already-scanned PDF files using scanner-native OCR text and connector extraction where available.",
     "sourceTypes": [
-      "local_pdf_manifest",
+      "connector_object_manifest",
       "onedrive_pdf_manifest",
       "sharepoint_pdf_manifest",
       "uploaded_pdf_manifest"
@@ -38,11 +38,12 @@
   },
   "stageThree": {
     "description": "ChatGPT/OpenAI review for limited matching line items after Stage One and Stage Two outputs exist.",
-    "status": "blocked_until_openai_api_key_available",
+    "status": "server_side_binding_configured_runtime_verification_required",
     "batchLimit": 10,
     "openaiApiKey": {
       "required": true,
-      "status": "not_configured_in_this_workspace",
+      "status": "secrets_store_binding_configured",
+      "binding": "OPENAI_API_KEY",
       "safeSetup": "Use the OpenAI Developers secure key-creation flow when exposed. Do not store plaintext keys in source, Notion, or chat."
     }
   },
@@ -53,12 +54,33 @@
       "database_name": "chatvlsc-ocr-stage-one",
       "database_id": "06ce7692-f710-46a2-9a5f-d5428f941e5c",
       "migrations_dir": "migrations",
-      "migration": "migrations/0001_chatvlsc_ocr_stage_one.sql"
+      "migrations": [
+        "migrations/0001_chatvlsc_ocr_stage_one.sql",
+        "migrations/0002_ocr_privacy_integrity.sql"
+      ],
+      "remoteMigrationStatus": "applied_and_verified_2026_07_13",
+      "remoteApplicationRowCountsAfterVerification": {
+        "ocr_documents": 0,
+        "ocr_pages": 0,
+        "ocr_fields": 0,
+        "ocr_review_events": 0
+      }
     },
     "publicEndpoints": {
       "status": "GET /ocr/status",
       "schema": "GET /ocr/schema"
     }
+  },
+  "privateStorage": {
+    "status": "not_enabled",
+    "sourceDocumentsStored": false,
+    "requiredBeforeIngestion": [
+      "approved retention period",
+      "container ownership and access scope",
+      "private object storage binding",
+      "jurisdiction decision",
+      "owner sign-off"
+    ]
   },
   "notion": {
     "controlSurface": "ChatVLSC App Setup Progress Log",
@@ -70,6 +92,8 @@
     "noMove": true,
     "noPublicSensitiveConfig": true,
     "requiresOwnerApprovalBeforeConnectorWrites": true,
-    "requiresOpenAiKeyBeforeStageThree": true
+    "requiresVerifiedServerSideOpenAiBindingBeforeStageThree": true,
+    "ingestionEnabled": false,
+    "sourceContentPublic": false
   }
 }

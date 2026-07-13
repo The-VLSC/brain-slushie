@@ -1,0 +1,55 @@
+{
+  "$schema": "https://mcp.thevlsc.com/schemas/chatvlsc-hardened-implementation-record.schema.json",
+  "name": "ChatVLSC Hardened Implementation Record",
+  "recorded_at": "2026-07-13T09:34:05Z",
+  "status": "deployed_and_verified",
+  "workers": {
+    "main": {
+      "name": "vlsc-user-role-mcp",
+      "deployment_id": "3bdc1d28-fca4-40ae-8f22-bb4721ca67f9",
+      "version_id": "daf7d239-9019-42a1-a754-bfd9792be027",
+      "traffic_percent": 100,
+      "workers_dev_enabled": false,
+      "bindings_verified": [
+        "ASSETS",
+        "AI",
+        "OCR_DB",
+        "DIRECTORY_SORT_WORKFLOW",
+        "CLOUDFLARE_API_TOKEN",
+        "OPENAI_API_KEY",
+        "CF_ACCESS_TEAM_DOMAIN",
+        "CF_ACCESS_AUD"
+      ]
+    },
+    "homepage": {
+      "name": "thevlsc-www-homepage",
+      "deployment_id": "c471c222-ae18-4b32-87ab-29b92c0a217e",
+      "version_id": "e7084233-2870-406a-996a-5c3b6248bd47",
+      "routes": [
+        "https://www.thevlsc.com/",
+        "https://test.thevlsc.com/chatvlsc/"
+      ]
+    }
+  },
+  "d1": {
+    "database_name": "chatvlsc-ocr-stage-one",
+    "migration": "0002_ocr_privacy_integrity.sql",
+    "status": "applied_and_verified",
+    "validation_trigger_count": 9,
+    "application_rows_after_verification": 0
+  },
+  "file_sort": {
+    "status": "plan_only_access_gated",
+    "persistent_workflow_execution": false,
+    "source_document_fixture": "synthetic_only"
+  },
+  "edge_verification": {
+    "unauthenticated_result": "401_invalid_token",
+    "access_fail_closed": true
+  },
+  "secrets": {
+    "values_inspected": false,
+    "values_published": false,
+    "secrets_store_bindings_preserved": true
+  }
+}
