@@ -1,0 +1,40 @@
+{
+  "$schema": "./schemas/rli-ocr-experiment.config.schema.json",
+  "name": "ChatVLSC RLI OCR Experiment",
+  "status": "local_synthetic_benchmark_ready",
+  "purpose": "Compare embedded PDF text extraction with local Tesseract OCR and consolidate normalized fields into an auditable Excel-compatible RLI master database.",
+  "engineOrder": [
+    "pdfjs_embedded_text",
+    "tesseract_js"
+  ],
+  "limits": {
+    "maxFiles": 20,
+    "maxPages": 50,
+    "minimumEmbeddedCharacters": 40,
+    "stageThreeBatchLimit": 10
+  },
+  "privacy": {
+    "syntheticFixtureOnlyForBenchmark": true,
+    "absolutePathsPersisted": false,
+    "sourceDocumentsCopied": false,
+    "pageTextIncludedByDefault": false,
+    "cloudIngestionEnabled": false
+  },
+  "artifacts": {
+    "fixture": "data/ocr-test",
+    "manifest": "output/rli-ocr/rli-ocr-manifest.json",
+    "documentsCsv": "output/rli-ocr/documents.csv",
+    "fieldsCsv": "output/rli-ocr/fields.csv",
+    "workbook": "outputs/rli-ocr-master/ChatVLSC-RLI-Master.xlsx"
+  },
+  "acceptance": {
+    "minimumMeanFieldAccuracy": 0.9,
+    "requireEmbeddedAndImageOnlyFixtures": true,
+    "requireNoAbsolutePaths": true,
+    "requireNoSourceDocumentCopies": true
+  },
+  "network": {
+    "providerApiCallsRequired": false,
+    "tesseractLanguageData": "Downloaded once by tesseract.js and reused from the local .cache/tesseract directory."
+  }
+}

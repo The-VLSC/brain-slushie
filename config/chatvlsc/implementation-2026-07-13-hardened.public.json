@@ -1,13 +1,13 @@
 {
   "$schema": "https://mcp.thevlsc.com/schemas/chatvlsc-hardened-implementation-record.schema.json",
   "name": "ChatVLSC Hardened Implementation Record",
-  "recorded_at": "2026-07-13T09:34:05Z",
+  "recorded_at": "2026-07-13T09:55:11Z",
   "status": "deployed_and_verified",
   "workers": {
     "main": {
       "name": "vlsc-user-role-mcp",
-      "deployment_id": "3bdc1d28-fca4-40ae-8f22-bb4721ca67f9",
-      "version_id": "daf7d239-9019-42a1-a754-bfd9792be027",
+      "deployment_id": "2d49b767-0c97-474e-8244-6e4957e5cacc",
+      "version_id": "3d17cc69-14fc-4abc-b1f2-99d06c2c288f",
       "traffic_percent": 100,
       "workers_dev_enabled": false,
       "bindings_verified": [
@@ -37,6 +37,20 @@
     "status": "applied_and_verified",
     "validation_trigger_count": 9,
     "application_rows_after_verification": 0
+  },
+  "ocr_local_benchmark": {
+    "status": "passed_synthetic_only_ingestion_disabled",
+    "documents": 2,
+    "pages": 2,
+    "fields": 10,
+    "embedded_text_documents": 1,
+    "tesseract_documents": 1,
+    "mean_ocr_confidence": 0.965,
+    "mean_field_accuracy": 1,
+    "workbook_sheets": 5,
+    "workbook_formula_errors": 0,
+    "source_documents_copied": false,
+    "public_download_enabled": false
   },
   "file_sort": {
     "status": "plan_only_access_gated",

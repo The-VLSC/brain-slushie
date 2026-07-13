@@ -3,10 +3,10 @@
   "$id": "https://mcp.thevlsc.com/schemas/document-ocr-pipeline.config.schema.json",
   "title": "ChatVLSC Document OCR Pipeline Configuration",
   "type": "object",
-  "required": ["name", "status", "stageOne", "stageThree", "cloudflare", "privateStorage", "guards"],
+  "required": ["name", "status", "stageOne", "stageThree", "localBenchmark", "cloudflare", "privateStorage", "guards"],
   "properties": {
     "name": { "type": "string", "minLength": 1 },
-    "status": { "const": "database_contract_hardening" },
+    "status": { "const": "remote_integrity_migration_applied_ingestion_disabled" },
     "stageOne": {
       "type": "object",
       "required": ["sourceTypes", "outputs", "reviewFlags"],
@@ -33,6 +33,49 @@
         }
       },
       "additionalProperties": true
+    },
+    "localBenchmark": {
+      "type": "object",
+      "required": ["status", "config", "runner", "test", "fixtureGenerator", "workbookBuilder", "workbook", "results", "guards"],
+      "properties": {
+        "status": { "const": "passed_synthetic_only_ingestion_disabled" },
+        "config": { "const": "config/rli-ocr-experiment.config.json" },
+        "runner": { "const": "scripts/run-rli-ocr-pipeline.mjs" },
+        "test": { "const": "scripts/test-rli-ocr-pipeline.mjs" },
+        "fixtureGenerator": { "const": "scripts/generate-rli-ocr-fixture.mjs" },
+        "workbookBuilder": { "const": "tools/rli-workbook/build.mjs" },
+        "workbook": { "const": "outputs/rli-ocr-master/ChatVLSC-RLI-Master.xlsx" },
+        "results": {
+          "type": "object",
+          "required": ["documents", "pages", "fields", "embeddedTextDocuments", "tesseractDocuments", "meanOcrConfidence", "meanFieldAccuracy", "reviewDocuments", "formulaErrors"],
+          "properties": {
+            "documents": { "type": "integer", "minimum": 2 },
+            "pages": { "type": "integer", "minimum": 2 },
+            "fields": { "type": "integer", "minimum": 1 },
+            "embeddedTextDocuments": { "type": "integer", "minimum": 1 },
+            "tesseractDocuments": { "type": "integer", "minimum": 1 },
+            "meanOcrConfidence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "meanFieldAccuracy": { "type": "number", "minimum": 0.9, "maximum": 1 },
+            "reviewDocuments": { "type": "integer", "minimum": 0 },
+            "formulaErrors": { "const": 0 }
+          },
+          "additionalProperties": false
+        },
+        "guards": {
+          "type": "object",
+          "required": ["syntheticFixtureOnly", "absolutePathsPersisted", "sourceDocumentsCopied", "pageTextPersistedByDefault", "providerApiCallsRequired", "cloudIngestionEnabled"],
+          "properties": {
+            "syntheticFixtureOnly": { "const": true },
+            "absolutePathsPersisted": { "const": false },
+            "sourceDocumentsCopied": { "const": false },
+            "pageTextPersistedByDefault": { "const": false },
+            "providerApiCallsRequired": { "const": false },
+            "cloudIngestionEnabled": { "const": false }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     },
     "privateStorage": {
       "type": "object",

@@ -37,6 +37,16 @@
       ]
     },
     {
+      "capability": "Local PDF extraction experiment and Excel-compatible RLI master database",
+      "evidence": [
+        "Synthetic embedded-text and image-only PDF fixtures",
+        "PDF.js and Tesseract.js extraction paths both verified",
+        "Ten normalized fields at 100 percent mean field accuracy",
+        "ChatVLSC-RLI-Master.xlsx generated with five sheets and zero formula errors",
+        "GET /ocr/experiment and GET /ocr/master-database/status deployed behind Cloudflare Access"
+      ]
+    },
+    {
       "capability": "Secrets and binding preservation",
       "evidence": [
         "Two Secrets Store bindings remain attached",

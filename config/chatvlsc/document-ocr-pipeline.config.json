@@ -47,6 +47,34 @@
       "safeSetup": "Use the OpenAI Developers secure key-creation flow when exposed. Do not store plaintext keys in source, Notion, or chat."
     }
   },
+  "localBenchmark": {
+    "status": "passed_synthetic_only_ingestion_disabled",
+    "config": "config/rli-ocr-experiment.config.json",
+    "runner": "scripts/run-rli-ocr-pipeline.mjs",
+    "test": "scripts/test-rli-ocr-pipeline.mjs",
+    "fixtureGenerator": "scripts/generate-rli-ocr-fixture.mjs",
+    "workbookBuilder": "tools/rli-workbook/build.mjs",
+    "workbook": "outputs/rli-ocr-master/ChatVLSC-RLI-Master.xlsx",
+    "results": {
+      "documents": 2,
+      "pages": 2,
+      "fields": 10,
+      "embeddedTextDocuments": 1,
+      "tesseractDocuments": 1,
+      "meanOcrConfidence": 0.965,
+      "meanFieldAccuracy": 1,
+      "reviewDocuments": 0,
+      "formulaErrors": 0
+    },
+    "guards": {
+      "syntheticFixtureOnly": true,
+      "absolutePathsPersisted": false,
+      "sourceDocumentsCopied": false,
+      "pageTextPersistedByDefault": false,
+      "providerApiCallsRequired": false,
+      "cloudIngestionEnabled": false
+    }
+  },
   "cloudflare": {
     "worker": "vlsc-user-role-mcp",
     "d1": {
@@ -68,7 +96,9 @@
     },
     "publicEndpoints": {
       "status": "GET /ocr/status",
-      "schema": "GET /ocr/schema"
+      "schema": "GET /ocr/schema",
+      "experiment": "GET /ocr/experiment",
+      "masterDatabase": "GET /ocr/master-database/status"
     }
   },
   "privateStorage": {

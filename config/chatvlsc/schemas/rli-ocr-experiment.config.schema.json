@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcp.thevlsc.com/schemas/rli-ocr-experiment.config.schema.json",
+  "title": "ChatVLSC RLI OCR Experiment Configuration",
+  "type": "object",
+  "required": ["name", "status", "purpose", "engineOrder", "limits", "privacy", "artifacts", "acceptance", "network"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "status": { "const": "local_synthetic_benchmark_ready" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "engineOrder": { "const": ["pdfjs_embedded_text", "tesseract_js"] },
+    "limits": {
+      "type": "object",
+      "required": ["maxFiles", "maxPages", "minimumEmbeddedCharacters", "stageThreeBatchLimit"],
+      "properties": {
+        "maxFiles": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "maxPages": { "type": "integer", "minimum": 1, "maximum": 500 },
+        "minimumEmbeddedCharacters": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "stageThreeBatchLimit": { "type": "integer", "minimum": 1, "maximum": 10 }
+      },
+      "additionalProperties": false
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["syntheticFixtureOnlyForBenchmark", "absolutePathsPersisted", "sourceDocumentsCopied", "pageTextIncludedByDefault", "cloudIngestionEnabled"],
+      "properties": {
+        "syntheticFixtureOnlyForBenchmark": { "const": true },
+        "absolutePathsPersisted": { "const": false },
+        "sourceDocumentsCopied": { "const": false },
+        "pageTextIncludedByDefault": { "const": false },
+        "cloudIngestionEnabled": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": { "type": "object" },
+    "acceptance": { "type": "object" },
+    "network": { "type": "object" }
+  },
+  "additionalProperties": false
+}
