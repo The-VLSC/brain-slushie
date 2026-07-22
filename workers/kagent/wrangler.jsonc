@@ -9,10 +9,10 @@
   "ai": { "binding": "AI" },
   "vars": {
     "ENVIRONMENT": "development",
-    "OWNER_PRINCIPAL": "Christian@TheVLSC.com",
-    "KAGENT_PRINCIPAL": "Kagent@TheVLSC.com",
-    "HOMUNCUL_PRINCIPAL": "Homoncul.ai@TheVLSC.com",
-    "CHATVLSC_PRINCIPAL": "Chat@TheVLSC.com",
+    "OWNER_PRINCIPAL": "christian@thevlsc.com",
+    "KAGENT_PRINCIPAL": "kagent@thevlsc.com",
+    "HOMUNCUL_PRINCIPAL": "homuncul.ai@thevlsc.com",
+    "CHATVLSC_PRINCIPAL": "chat@thevlsc.com",
     "RISK_REVIEW_THRESHOLD": "8"
   },
   "env": {
@@ -22,26 +22,26 @@
       "ai": { "binding": "AI" },
       "vars": {
         "ENVIRONMENT": "staging",
-        "OWNER_PRINCIPAL": "Christian@TheVLSC.com",
-        "KAGENT_PRINCIPAL": "Kagent@TheVLSC.com",
-        "HOMUNCUL_PRINCIPAL": "Homoncul.ai@TheVLSC.com",
-        "CHATVLSC_PRINCIPAL": "Chat@TheVLSC.com",
+        "OWNER_PRINCIPAL": "christian@thevlsc.com",
+        "KAGENT_PRINCIPAL": "kagent@thevlsc.com",
+        "HOMUNCUL_PRINCIPAL": "homuncul.ai@thevlsc.com",
+        "CHATVLSC_PRINCIPAL": "chat@thevlsc.com",
         "RISK_REVIEW_THRESHOLD": "8"
       }
     },
     "production": {
-      "name": "mono-aireality-configurator",
+      "name": "thevlsc-kagent",
       "workers_dev": false,
       "routes": [
-        { "pattern": "mono.aireality.com", "custom_domain": true }
+        { "pattern": "kagent.thevlsc.com/*", "zone_name": "thevlsc.com" }
       ],
       "ai": { "binding": "AI" },
       "vars": {
         "ENVIRONMENT": "production",
-        "OWNER_PRINCIPAL": "Christian@TheVLSC.com",
-        "KAGENT_PRINCIPAL": "Kagent@TheVLSC.com",
-        "HOMUNCUL_PRINCIPAL": "Homoncul.ai@TheVLSC.com",
-        "CHATVLSC_PRINCIPAL": "Chat@TheVLSC.com",
+        "OWNER_PRINCIPAL": "christian@thevlsc.com",
+        "KAGENT_PRINCIPAL": "kagent@thevlsc.com",
+        "HOMUNCUL_PRINCIPAL": "homuncul.ai@thevlsc.com",
+        "CHATVLSC_PRINCIPAL": "chat@thevlsc.com",
         "RISK_REVIEW_THRESHOLD": "8"
       }
     }
