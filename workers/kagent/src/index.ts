@@ -92,7 +92,7 @@ export default {
     const identity = identityFromRequest(request, env);
 
     if (request.method === "GET" && url.pathname === "/health") {
-      return json({ service: "mono-aireality-configurator", status: "ok", environment: env.ENVIRONMENT });
+      return json({ service: "thevlsc-kagent", status: "ok", environment: env.ENVIRONMENT });
     }
 
     if (request.method === "GET" && url.pathname === "/v1/whoami") {
