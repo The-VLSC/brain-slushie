@@ -18,6 +18,10 @@ on:
         type: choice
         options: [staging, production]
         default: staging
+      governance_record:
+        description: Proposal or approval record identifier
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -42,6 +46,8 @@ jobs:
       - run: npm run check
       - name: Verify governance policy
         run: node -e "const p=require('./config/governance.json'); if(p.highRiskThreshold!==8||p.highRiskReviewers.length!==3||!p.consensusRequired) process.exit(1)"
+      - name: Verify production route
+        run: grep -q 'kagent.thevlsc.com' wrangler.jsonc
 
   deploy-staging:
     if: github.event_name == 'workflow_dispatch' && inputs.target == 'staging'
@@ -70,7 +76,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - name: Deploy mono.aireality.com
+      - name: Deploy kagent.thevlsc.com
         run: npm run deploy:production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
