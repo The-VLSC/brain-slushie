@@ -5,13 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "check": "tsc --noEmit && wrangler deploy --dry-run",
+    "check": "tsc --noEmit && wrangler deploy --dry-run --env staging",
     "deploy:staging": "wrangler deploy --env staging",
     "deploy:production": "wrangler deploy --env production"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260715.0",
-    "typescript": "^5.8.3",
-    "wrangler": "^4.24.3"
+    "@cloudflare/workers-types": "latest",
+    "typescript": "latest",
+    "wrangler": "latest"
   }
 }
