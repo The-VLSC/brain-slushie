@@ -1,0 +1,4 @@
+interface:
+  display_name: "RLI Workbook Master Audit"
+  short_description: "Rank and audit duplicate RLI Excel masters"
+  default_prompt: "Use $rli-workbook-master-audit to rank duplicate RLI workbooks and prepare a review-only reconciliation handoff."
