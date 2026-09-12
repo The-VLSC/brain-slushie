@@ -15,6 +15,7 @@ Produce an evidence-backed provisional-master decision and a review-only handoff
 4. Collect for each candidate: exact path, item ID, byte size, content hash when available, modified time, current version, version count, and permissions inheritance.
 5. Run `scripts/rank_candidates.py` on the sanitized metadata JSON. Ranking narrows review; it never proves authority.
 6. Materialize candidate bytes only when the connector can do so safely. Hash the complete package, then inventory sheet names, visibility, used ranges, non-empty cells, formulas, tables, validations, defined names, and formula errors.
+   - Use `scripts/compare_workbooks.py` for a read-only value/formula comparison of common sheets. Review uniquely named sheets separately rather than assuming their names are equivalent.
 7. Apply `references/review-controls.md`. Designate a provisional master only when location, version lineage, and workbook evidence agree. Otherwise set status to `needs_review`.
 8. Save the report in `ResultsPendingReview`. Do not move, rename, replace, delete, or resave source workbooks during the audit.
 
