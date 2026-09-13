@@ -1,0 +1,12 @@
+.secrets/
+runtime/
+inventory/
+bin/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+*.token

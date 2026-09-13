@@ -49,3 +49,12 @@ Staged verification and ChatGPT app readiness are documented without secrets:
 - Secondary app: `RLI Assistant`
 - Secondary MCP URL: `https://mcp.thevlsc.com/v1/`
 - Legacy local alias: `chatvlsc_dev`
+
+## FLOWSTATION / Books
+
+FLOWSTATION handoff material is centralized under:
+
+- `docs/flowstation/` — architecture, governance, setup history, Books intake/file design, and current status.
+- `config/flowstation/` — machine-readable hierarchy, SharePoint boundaries, storage, intake routing, setup state, and pending Cloudflare state.
+
+`docs/flowstation/HANDOFF.md` is the handoff index. GitHub is the source of truth for versioned configuration/documentation; verified SharePoint document libraries remain the source of truth for working business documents and their cloud revisions. Local synced/scaffold folders must not become competing editable masters.

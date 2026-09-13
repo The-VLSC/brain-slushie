@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-13T00:46:00-05:00",
+  "authority": {
+    "repository": "The-VLSC/brain-slushie",
+    "configuration_docs": "GitHub",
+    "working_documents": "SharePoint document libraries",
+    "local_machine": "processing/cache/history only"
+  },
+  "flowstation": {
+    "hostname": "books.thevlsc.com",
+    "computer": "FLOWSTATION",
+    "administrator": "Christian J Velasco Martinez",
+    "business_account": "admin@thevlsc.com"
+  },
+  "storage": {
+    "processing_root": "D:\\FLOWSTATION\\Processing",
+    "shared_library_url": "https://thevlsc.sharepoint.com/sites/fediland2/Shared%20Documents",
+    "library_selection": "existing connection reused; conflicting documents not yet reconciled",
+    "automatic_processing_enabled": false,
+    "automatic_publish_enabled": false,
+    "automatic_deletion_enabled": false,
+    "backup_verified": false,
+    "job_requirements": [
+      "Unique job ID",
+      "Record source library item ID and version before processing",
+      "Local snapshot only",
+      "Revalidate remote source version before publishing",
+      "Review conflicting edits",
+      "No overwriting shared files from stale snapshots"
+    ]
+  },
+  "zone_hierarchy": {
+    "dns_zone": "thevlsc.com",
+    "access_roles_applied": false,
+    "nodes": [
+      {"id":"christian","parent":null,"level":1,"name":"Christian J Velasco Martinez","role":"admin"},
+      {"id":"flowstation","parent":"christian","level":2,"name":"FLOWSTATION","hostname":"books.thevlsc.com"},
+      {"id":"fediland","parent":"flowstation","level":3,"name":"Fediland"},
+      {"id":"jonathan","parent":"flowstation","level":3,"name":"Jonathan's Services, LLC"},
+      {"id":"karen","parent":"flowstation","level":3,"name":"Karen's Study Room"},
+      {"id":"future","parent":"flowstation","level":3,"name":"Other Future Zones","reserved":true},
+      {"id":"richardson","parent":"fediland","level":4,"name":"Richardson Landscape, Inc"},
+      {"id":"northscapes","parent":"fediland","level":4,"name":"Northscapes Properties, LLC"},
+      {"id":"diaz","parent":"fediland","level":4,"name":"Diaz Family"}
+    ]
+  },
+  "sharepoint": {
+    "status": "requested_not_applied",
+    "hostname": "thevlsc.sharepoint.com",
+    "authoritative_working_storage": "SharePoint document libraries synced by OneDrive",
+    "local_zone_folders": "scaffolding_only_not_authoritative_working_documents",
+    "default_access": "assigned zone and authorized descendants only",
+    "zones": [
+      {"zone_id":"fediland","known_site_path":"/sites/fediland2","children":["richardson","northscapes","diaz"],"permissions_verified":false},
+      {"zone_id":"jonathan","site_path":null,"permissions_verified":false},
+      {"zone_id":"karen","site_path":null,"permissions_verified":false}
+    ],
+    "homework": {"allowed_zone":"karen","allowed_content":"class materials","access":"read","connection_applied":false}
+  },
+  "intake": {
+    "status": "staged_not_deployed",
+    "matching": "case_insensitive_exact_recipient_before_catch_all",
+    "routes": [
+      {"address":"inbox@thevlsc.com","destination":"general_intake","catch_all":true},
+      {"address":"officerli@thevlsc.com","zone_id":"fediland","child_zone_ids":["richardson","northscapes","diaz"]},
+      {"address":"jonathan@thevlsc.com","zone_id":"jonathan","display_name":"Jonathan's Services, LLC"},
+      {"address":"karen@thevlsc.com","zone_id":"karen","display_name":"Karen's Study Room"}
+    ],
+    "automatic_file_replacement_enabled": false,
+    "ambiguous_attachment_action": "hold_for_review"
+  },
+  "cloudflare": {
+    "status": "blocked_credentials_and_origin",
+    "hostname": "books.thevlsc.com",
+    "candidate_record_applied": false,
+    "tunnel_secret_validation": "Unauthorized: Invalid tunnel secret",
+    "management_credential_available": false,
+    "http_origin": null,
+    "required_before_publish": [
+      "Read live tunnel configuration, DNS records, and connector status",
+      "Confirm or replace the existing tunnel",
+      "Select and validate the Books HTTP application origin",
+      "Configure authenticated access before exposing private zone content",
+      "Install refreshed connector credential in a restricted local secret store",
+      "Take a DNS snapshot and verify the public route end to end"
+    ]
+  },
+  "recorded_setup_status": {
+    "hierarchy_nodes": 9,
+    "full_content_review_completed": false,
+    "openai_runtime_running": true,
+    "openai_runtime_healthy": true,
+    "openai_runtime_ready": true,
+    "openai_end_to_end": "blocked_credit_balance_exhausted",
+    "cloudflare": "blocked_invalid_tunnel_secret",
+    "dns_records_changed": 0
+  }
+}
