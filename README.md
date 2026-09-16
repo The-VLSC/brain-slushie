@@ -14,6 +14,8 @@ Sanitized ChatVLSC route and MCP configuration lives under `config/chatvlsc/`.
 - `entra-chatvlsc-write-status.json`
 - `staged-configuration-verification.config.json`
 - `chatgpt-app-readiness.config.json`
+- `app-branding.public.json`
+- `assets/chatvlsc-app-logo.png`
 - `cloudflare-secret-storage.plan.json`
 - `mcp-connection-readiness.json`
 - `mcp-protocol-validation.json`
