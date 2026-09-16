@@ -10,3 +10,9 @@ bin/
 *.pfx
 *.p12
 *.token
+
+# Cloudflare local secrets and generated runtime state
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.wrangler/
