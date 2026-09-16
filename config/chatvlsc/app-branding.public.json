@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "app_name": "ChatVLSC",
+  "brand_owner": "The VLSC",
+  "logo": {
+    "repository_path": "config/chatvlsc/assets/chatvlsc-app-logo.png",
+    "mime_type": "image/png",
+    "width_px": 512,
+    "height_px": 512,
+    "background": "transparent",
+    "intended_usage": [
+      "composerIcon",
+      "logo"
+    ]
+  },
+  "platform_application_status": "pending_manual_upload_or_plugin_package_reference",
+  "notes": "This file records the approved ChatVLSC logo asset. Updating a ChatGPT Platform listing still requires uploading this asset in the plugin submission portal or referencing it from an installable plugin manifest."
+}
