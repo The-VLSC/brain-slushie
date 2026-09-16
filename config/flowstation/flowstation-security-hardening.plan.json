@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "status": "proposal_only_not_deployed",
+  "created_at": "2026-09-15T04:50:00Z",
+  "principles": {
+    "default_deny": true,
+    "fail_closed": true,
+    "zone_data_isolation": true,
+    "skill_promotion_requires_sanitization": true,
+    "mail_send_default": "draft_only",
+    "local_processing_first": true
+  },
+  "identity": {
+    "chatvlsc": {
+      "scope": "tenant_owner_and_verified_christian_identity_set_only",
+      "authorization": "stable Entra object ID / provider subject mapping; never authorize by email string alone",
+      "skill_installation": "admin_only",
+      "high_risk_actions": "fresh MFA plus owner/admin role"
+    },
+    "rli_assistant": {
+      "scope": "fediland group and fediland zone users",
+      "higher_functions": "owner/admin only",
+      "skill_promotion_path": "RLI Assistant -> ChatVLSC review -> approved reusable skill",
+      "direct_cross_zone_access": false
+    },
+    "ksr": {
+      "scope": "KSR assigned user(s) and tenant admin",
+      "knowledge_scope": "KSR-only mailbox/document corpus",
+      "skill_promotion_path": "KSR -> ChatVLSC sanitized reusable skill only",
+      "direct_cross_zone_access": false
+    },
+    "jsl": {
+      "scope": "JSL assigned user(s) and tenant admin",
+      "knowledge_scope": "JSL-only mailbox/document corpus",
+      "skill_promotion_path": "JSL -> ChatVLSC sanitized reusable skill only",
+      "direct_cross_zone_access": false
+    }
+  },
+  "knowledge": {
+    "zone_content_must_not_be_promoted": [
+      "mailbox bodies",
+      "attachments",
+      "customer/vendor records",
+      "financial records",
+      "student records",
+      "personally identifying data",
+      "credentials or tokens"
+    ],
+    "promotable_artifacts": [
+      "sanitized workflow procedure",
+      "schema/template",
+      "classification rule",
+      "non-sensitive prompt pattern",
+      "tested automation skill"
+    ]
+  },
+  "mail_intake": {
+    "books_alias_role": "ingress/router only",
+    "routing_key_order": [
+      "validated envelope recipient",
+      "validated To/Cc recipient",
+      "known sender plus explicit zone token",
+      "manual review"
+    ],
+    "ambiguous_action": "quarantine_for_review",
+    "internal_forwarding": "avoid; route attachments/data directly to zone storage",
+    "automatic_external_send": false,
+    "bulk_send": false,
+    "loop_detection": true,
+    "max_attachments_per_message": 25,
+    "max_message_processing_mb": 100
+  },
+  "flowstation_local": {
+    "disposable_directories": ["Temp", "Cache"],
+    "protected_directories": ["Jobs", "ResultsPendingReview", "Logs", "Quarantine"],
+    "temp_retention_days": 7,
+    "cache_retention_days": 14,
+    "minimum_free_space_gb": 20,
+    "max_queue_items": 500,
+    "max_cache_gb": 20,
+    "on_limit": "pause intake and alert admin"
+  },
+  "sharepoint_publish": {
+    "automatic_publish": false,
+    "max_files_per_batch": 20,
+    "max_batch_size_mb": 250,
+    "max_concurrent_uploads": 2,
+    "minimum_seconds_between_batches": 30,
+    "recursive_publish": false,
+    "overwrite_existing": false,
+    "require_remote_version_revalidation": true,
+    "require_content_hash_deduplication": true,
+    "require_idempotency_key": true,
+    "conflict_action": "hold_for_review"
+  },
+  "cloudflare": {
+    "admin_routes": "Cloudflare Access owner/admin policy plus Entra role claim",
+    "zone_routes": "zone-specific Access policy plus service identity",
+    "provider_router": {
+      "purpose": "usage/cost optimization without sharing credentials",
+      "requirements": [
+        "provider allowlist",
+        "per-provider budget",
+        "per-zone budget",
+        "request classification",
+        "PII/sensitivity policy before external routing",
+        "circuit breaker",
+        "timeout and retry caps",
+        "auditable provider decision log"
+      ]
+    },
+    "payment_or_design_integrations": "PayPal/Figma must never possess Cloudflare deploy/admin credentials; integrations may emit events to a constrained internal API only"
+  },
+  "ksr": {
+    "allowed_source_classes": [
+      "program of study",
+      "course of study",
+      "educational program",
+      "program of instruction",
+      "coursework",
+      "syllabus",
+      "module",
+      "subject",
+      "admin-approved study material"
+    ],
+    "generated_outputs": ["study guide", "quiz", "flashcards", "review schedule"],
+    "non_curriculum_mail_action": "hold_for_review"
+  },
+  "jsl": {
+    "workflow_profile": "Fediland-lite bookkeeping/service-company",
+    "initial_functions": [
+      "customer/vendor intake",
+      "invoice and receipt extraction",
+      "expense classification",
+      "job/customer bookkeeping",
+      "seasonal installation job records",
+      "document archive"
+    ]
+  },
+  "required_before_production": [
+    "Apply and verify Entra role/group claims",
+    "Apply Cloudflare Access applications for admin, ChatVLSC, Fediland/RLI, KSR and JSL routes",
+    "Verify SharePoint permissions for every zone",
+    "Rotate any credential ever committed, logged, pasted or stored in shared files",
+    "Resolve the documented legacy OpenAI key inventory",
+    "Keep mutating MCP tools disabled until authorization tests pass",
+    "Add queue/batch limits to the actual worker, not configuration only",
+    "Test tenant escape, zone escape, replay, duplicate upload, mail loop and burst-upload cases"
+  ]
+}
